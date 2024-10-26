@@ -1,9 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 
-request = requests.get('https://www.seek.co.nz/?tracking=CLP-WEB-SeekLandingPage')
+user_input = input("URL: ") #User input for the url
 
-print(request)
+try:
+    request = requests.get(user_input) 
+    request.raise_for_status() #check for error
+    print(f"Response: \n{request}")
 
-parser = BeautifulSoup(request.content, 'html.parser')
-print(parser.prettify())
+    parser = BeautifulSoup(request.content, 'html.parser')
+    print(parser.prettify())
+except requests.exceptions.RequestException as e:
+    print(f"{e}")
+    
